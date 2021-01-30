@@ -1,4 +1,4 @@
-#include<iostream>
+п»ї#include<iostream>
 #include<Windows.h>
 using namespace std;
 
@@ -8,7 +8,7 @@ int StrLen(char str[]);
 void main()
 {
 	setlocale(LC_ALL, "");
-	'\0';  //ASCII-символ с кодом 0
+	'\0';  //ASCII-СЃРёРјРІРѕР» СЃ РєРѕРґРѕРј 0
 	//Null terminated lines
 	//char str[5] = { 'H','e','l','l','o' };
 	//for (int i = 0; i < 5; i++)cout << str[i]; cout << endl;
@@ -19,10 +19,10 @@ void main()
 	//system("CHCP 1251");
 	const int n = 20;
 	char str[n];
-	cout << "Введите строку: ";
+	cout << "Р’РІРµРґРёС‚Рµ СЃС‚СЂРѕРєСѓ: ";
 	InputLine(str, n);
 	cout << str << endl;
-	cout << "Длина строки: " << StrLen(str) << endl;
+	cout << "Р”Р»РёРЅР° СЃС‚СЂРѕРєРё: " << StrLen(str) << endl;
 }
 void InputLine(char str[], const int n)
 {
@@ -33,7 +33,7 @@ void InputLine(char str[], const int n)
 }
 int StrLen(char str[])
 {
-	//Возвращает длину строки
+	//Р’РѕР·РІСЂР°С‰Р°РµС‚ РґР»РёРЅСѓ СЃС‚СЂРѕРєРё
 	int i = 0;
 	for (; str[i]; i++);
 	return i;
