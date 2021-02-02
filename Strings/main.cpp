@@ -1,11 +1,17 @@
 ﻿#include<iostream>
 #include<Windows.h>
+#include<conio.h>
+
 using namespace std;
+using std::cin;
+using std::cout;
+using std::endl;
 
 void InputLine(char str[], const int n);
 int StrLen(char str[]);
 
 void to_upper(char str[]);
+void to_lower(char str[]);
 void shrink(char str[]);
 bool is_palindrome(char str[]);
 bool is_number(char str[]);
@@ -38,6 +44,18 @@ void main()
 	setlocale(LC_ALL, "");
 	const int n = 1500;
 	char str[n];
+	cout << "Введите строку: ";
+	InputLine(str, n);
+	cout << "Нажмите 'U', если хотите перевести строку в верхний регистр, либо любую другую клавишу, чтобы перевести строку в нижний регистр." << endl;
+	char ch;                     // Клавиша
+	ch = _getch();              //  Нажать клавишу
+	switch (ch)
+	{
+	case 'U': to_upper(str); break;
+	case 'u': to_upper(str); break;
+	default: to_lower(str);	break;
+	}
+	cout << str << endl;
 	cout << "Введите строку: ";
 	InputLine(str, n);
 	system("CLS");
@@ -73,7 +91,23 @@ int StrLen(char str[])
 }
 void to_upper(char str[])
 {
-
+	for (int i = 0; str[i]; i++)
+	{
+		if (str[i] >= 'а' && str[i] <= 'я' || str[i] >= 'a' && str[i] <= 'z')
+		{
+			str[i] = (int)str[i] - 32;
+		}
+	}
+}
+void to_lower(char str[])
+{
+	for (int i = 0; str[i]; i++)
+	{
+		if (str[i] >= 'А' && str[i] <= 'Я' || str[i] >= 'A' && str[i] <= 'Z')
+		{
+			str[i] = (int)str[i] + 32;
+		}
+	}
 }
 void shrink(char str[])
 {
@@ -99,6 +133,7 @@ void shrink(char str[])
 }
 bool is_palindrome(char str[])
 {
+	to_lower(str);
 	for (int i = 0; str[i]; i++)
 	{
 		while (str[i] == ' ')
