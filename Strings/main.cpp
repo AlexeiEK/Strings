@@ -39,21 +39,40 @@ void main()
 	cout << "Длина строки: " << StrLen(str) << endl;
 }
 #endif // ClassWork
+void ASCII()
+{
+	for (int i = 0; i < 256; i++)
+	{
+		if (i % 16 == 0)cout << endl;
+		cout << i << "  " << (char)i << " ";
+	}
+}
 void main()
 {
 	setlocale(LC_ALL, "");
+	ASCII();
+	cout << endl << endl;
 	const int n = 1500;
 	char str[n];
 	cout << "Введите строку: ";
 	InputLine(str, n);
-	cout << "Нажмите 'U', если хотите перевести строку в верхний регистр, либо любую другую клавишу, чтобы перевести строку в нижний регистр." << endl;
+	cout << "Нажмите 'U', если хотите перевести строку в верхний регистр, либо 'L', чтобы перевести строку в нижний регистр." << endl;
+	/*cout << (char)-125 << "  " << (char)-93 << "  " << endl;
+	cout << (int)'Д' << "  " << (int)'д' << "  " << endl;*/
 	char ch;                     // Клавиша
 	ch = _getch();              //  Нажать клавишу
+	//cout << ch << (int)ch << endl;
 	switch (ch)
 	{
-	case 'U': to_upper(str); break;
+	case 'U':
+	case -125:
+	case -93:
 	case 'u': to_upper(str); break;
-	default: to_lower(str);	break;
+	case 'L':
+	case -124:
+	case -92:
+	case 'l': to_lower(str); break;
+		//default: to_lower(str);	break;case 'U': to_upper(str); break;
 	}
 	cout << str << endl;
 	cout << "Введите строку: ";
@@ -95,7 +114,8 @@ void to_upper(char str[])
 	{
 		if (str[i] >= 'а' && str[i] <= 'я' || str[i] >= 'a' && str[i] <= 'z')
 		{
-			str[i] = (int)str[i] - 32;
+			//str[i] = (int)str[i] - 32;
+			str[i] -= 32;
 		}
 	}
 }
@@ -105,7 +125,8 @@ void to_lower(char str[])
 	{
 		if (str[i] >= 'А' && str[i] <= 'Я' || str[i] >= 'A' && str[i] <= 'Z')
 		{
-			str[i] = (int)str[i] + 32;
+			//str[i] = (int)str[i] + 32;
+			str[i] += 32;
 		}
 	}
 }
