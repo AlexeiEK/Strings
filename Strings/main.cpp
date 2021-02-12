@@ -16,7 +16,13 @@ void shrink(char str[]);
 bool is_palindrome(char str[]);
 bool is_number(char str[]);
 
+int to_int(char str[]);
+bool is_bin(char str[]);
+bool is_hex(char str[]);
+int bin_to_dec(char str[]);
+
 //#define ClassWork
+//#define HomeWork06_02
 
 #ifdef ClassWork
 void main()
@@ -39,6 +45,7 @@ void main()
 	cout << "Длина строки: " << StrLen(str) << endl;
 }
 #endif // ClassWork
+#ifdef HomeWork06_02
 void ASCII()
 {
 	for (int i = 0; i < 256; i++)
@@ -93,6 +100,27 @@ void main()
 	cout << str << endl;
 	is_palindrome(str) ? cout << "Эта строка палиндром!" : cout << "Эта строка не является палиндромом!";
 }
+#endif // HomeWork06_02
+
+void main()
+{
+	setlocale(LC_ALL, "");
+	const int n = 1500;
+	char str[n];
+	cout << "Введите число: ";
+	InputLine(str, n);
+	int number = to_int(str);
+	cout << "Число = " << number << endl;
+	system("PAUSE");
+	system("CLS");
+	cout << "Введите двоичное число: ";
+	InputLine(str, n);
+	cout << "Ваше число в десятичной СС: " << bin_to_dec(str) << endl;
+	cout << "Введите шестнадцатиричное число: ";
+	InputLine(str, n);
+	(is_hex(str)) ? cout << "Вы ввели верно!" : cout << "Неправильный формат числа!" << endl;
+}
+
 
 void InputLine(char str[], const int n)
 {
@@ -182,4 +210,68 @@ bool is_number(char str[])
 		str[i] >= '0' && str[i] <= '9' || str[i] == ' ' ? i++ : i = 0;  // Пробелы можно убрать, если они не нужны
 	} while (i && str[i]);
 	return i;
+}
+int to_int(char str[])
+{
+	int buffer = 0, flag = 1;
+	for (int i = 0; str[i]; i++)
+	{
+		if (str[i] == '-' && buffer == 0) flag--;
+		if (str[i] >= '0' && str[i] <= '9')	buffer = buffer * 10 + str[i] - 48;
+	}
+	if (flag > 0) return buffer;
+	return 0 - buffer;
+}
+bool is_bin(char str[])
+{
+	for (int i = 0; str[i]; i++) if (str[i] != ' ' && str[i] < '0' || str[i] > '1') return 0;
+	return 1;
+}
+bool is_hex(char str[])
+{
+	int i = 0, flag = 1;
+	while (flag && str[i] == ' ' || str[i] == '0')
+	{
+		i++;
+		if (str[i] == 'x' || str[i] == 'X')
+		{
+			i++;
+			flag = 0;
+		}
+	}
+	for (; str[i];)
+	{
+		if (str[i] >= '0' && str[i] <= '9' || str[i] >= 'A' && str[i] <= 'F' || str[i] >= 'a' && str[i] <= 'f' || str[i] == ' ')
+		{
+			i++;
+		}
+		else
+		{
+			return 0;
+		}
+	}
+	return i;
+}
+int bin_to_dec(char str[])
+{
+	int buffer = 0;
+	if (is_bin(str))
+	{
+		int iter = StrLen(str) - 1;
+		for (; str[iter] == ' '; iter--);   //Убираем пробелы вконце строки
+		for (int i = 0; str[i]; i++)
+		{
+			if (str[i] != ' ')
+			{
+				int buffer1;
+				buffer1 = str[i] - 48;
+				for (int j = i; j < iter; j++)
+				{
+					str[j] == ' ' ? buffer1 *= 1 : buffer1 *= 2;
+				}
+				buffer += buffer1;
+			}
+		}
+	}
+	return buffer;
 }
